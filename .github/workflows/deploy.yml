@@ -9,11 +9,17 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-      
+      with:
+        fetch-depth: 0  # 获取完整Git历史记录
+        
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
@@ -23,38 +29,30 @@ jobs:
         
     - name: Install dependencies
       run: |
-        npm install
+        npm ci
         npm run install:all
         
     - name: Build applications
       run: npm run build
       
-    - name: Create main deployment
+    - name: Create deployment structure
       run: |
         mkdir -p deploy/main-app
-        cp -r main-app/dist/* deploy/main-app/
-        
-    - name: Create remoteA deployment
-      run: |
         mkdir -p deploy/remoteA
-        cp -r remoteA/dist/* deploy/remoteA/
-        
-    - name: Create remoteB deployment
-      run: |
         mkdir -p deploy/remoteB
+        cp -r main-app/dist/* deploy/main-app/
+        cp -r remoteA/dist/* deploy/remoteA/
         cp -r remoteB/dist/* deploy/remoteB/
         
-    - name: Build main app with production URLs
-      run: |
-        # Use production webpack config
-        cd main-app
-        npm run build
-        cd ..
-        cp -r main-app/dist/* deploy/main-app/
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: './deploy'
         
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      id: deployment
+      uses: actions/deploy-pages@v4
       if: github.ref == 'refs/heads/main'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./deploy
