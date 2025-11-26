@@ -33,8 +33,8 @@ module.exports = {
         remoteB: 'remoteB@./remoteB/remoteEntry.js',
       },
       shared: {
-        react: { singleton: true, requiredVersion: deps.react },
-        'react-dom': { singleton: true, requiredVersion: deps['react-dom'] },
+        react: { singleton: true, requiredVersion: deps.react, eager: false },
+        'react-dom': { singleton: true, requiredVersion: deps['react-dom'], eager: false },
       },
     }),
     new HtmlWebpackPlugin({
