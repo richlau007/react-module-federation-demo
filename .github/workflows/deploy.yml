@@ -43,18 +43,12 @@ jobs:
         mkdir -p deploy/remoteB
         cp -r remoteB/dist/* deploy/remoteB/
         
-    - name: Update production URLs in main app
+    - name: Build main app with production URLs
       run: |
-        # Update webpack config for production
-        sed -i "s|http://localhost:3001|./remoteA|g" main-app/webpack.config.js
-        sed -i "s|http://localhost:3002|./remoteB|g" main-app/webpack.config.js
-        
-        # Rebuild main app with production URLs
+        # Use production webpack config
         cd main-app
         npm run build
         cd ..
-        
-        # Copy updated main app
         cp -r main-app/dist/* deploy/main-app/
         
     - name: Deploy to GitHub Pages
