@@ -29,8 +29,8 @@ module.exports = {
     new ModuleFederationPlugin({
       name: 'mainApp',
       remotes: {
-        remoteA: 'remoteA@../remoteA/remoteEntry.js',
-        remoteB: 'remoteB@../remoteB/remoteEntry.js',
+        remoteA: 'remoteA@./remoteA/remoteEntry.js',
+        remoteB: 'remoteB@./remoteB/remoteEntry.js',
       },
       shared: {
         react: { singleton: true, requiredVersion: deps.react },
