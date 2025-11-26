@@ -53,5 +53,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./deploy
-        publish_branch: main
-        destination_dir: docs
