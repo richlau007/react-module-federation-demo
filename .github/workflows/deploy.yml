@@ -1,0 +1,65 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: |
+        npm install
+        npm run install:all
+        
+    - name: Build applications
+      run: npm run build
+      
+    - name: Create main deployment
+      run: |
+        mkdir -p deploy/main-app
+        cp -r main-app/dist/* deploy/main-app/
+        
+    - name: Create remoteA deployment
+      run: |
+        mkdir -p deploy/remoteA
+        cp -r remoteA/dist/* deploy/remoteA/
+        
+    - name: Create remoteB deployment
+      run: |
+        mkdir -p deploy/remoteB
+        cp -r remoteB/dist/* deploy/remoteB/
+        
+    - name: Update production URLs in main app
+      run: |
+        # Update webpack config for production
+        sed -i "s|http://localhost:3001|./remoteA|g" main-app/webpack.config.js
+        sed -i "s|http://localhost:3002|./remoteB|g" main-app/webpack.config.js
+        
+        # Rebuild main app with production URLs
+        cd main-app
+        npm run build
+        cd ..
+        
+        # Copy updated main app
+        cp -r main-app/dist/* deploy/main-app/
+        
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./deploy
