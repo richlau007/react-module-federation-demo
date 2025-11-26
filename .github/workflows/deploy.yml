@@ -38,10 +38,12 @@ jobs:
       
     - name: Create deployment structure
       run: |
-        mkdir -p deploy/main-app
+        mkdir -p deploy
+        # Main app goes to root of deployment
+        cp -r main-app/dist/* deploy/
+        # Remote apps go to subdirectories
         mkdir -p deploy/remoteA
         mkdir -p deploy/remoteB
-        cp -r main-app/dist/* deploy/main-app/
         cp -r remoteA/dist/* deploy/remoteA/
         cp -r remoteB/dist/* deploy/remoteB/
         
