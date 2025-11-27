@@ -6,7 +6,7 @@ module.exports = {
   mode: 'production',
   entry: './src/index.js',
   output: {
-    publicPath: './',
+    publicPath: '/react-module-federation-demo/remoteB/',
     path: require('path').resolve(__dirname, 'dist'),
   },
   module: {

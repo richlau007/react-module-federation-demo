@@ -29,8 +29,8 @@ module.exports = {
     new ModuleFederationPlugin({
       name: 'mainApp',
       remotes: {
-        remoteA: 'remoteA@./remoteA/remoteEntry.js',
-        remoteB: 'remoteB@./remoteB/remoteEntry.js',
+        remoteA: 'remoteA@/react-module-federation-demo/remoteA/remoteEntry.js',
+        remoteB: 'remoteB@/react-module-federation-demo/remoteB/remoteEntry.js',
       },
       shared: ['react', 'react-dom'],
     }),
