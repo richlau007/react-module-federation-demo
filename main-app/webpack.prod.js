@@ -32,7 +32,6 @@ module.exports = {
         remoteA: 'remoteA@/react-module-federation-demo/remoteA/remoteEntry.js',
         remoteB: 'remoteB@/react-module-federation-demo/remoteB/remoteEntry.js',
       },
-      shared: ['react', 'react-dom'],
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html',

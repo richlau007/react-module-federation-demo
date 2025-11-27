@@ -32,7 +32,6 @@ module.exports = {
       exposes: {
         './App': './src/App',
       },
-      shared: ['react', 'react-dom'],
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
