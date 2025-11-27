@@ -30,7 +30,7 @@ function App() {
   return (
     <div className="container">
       <header className="header">
-        <h1>React Module Federation Demo</h1>
+        <h1>React Module Federation Demo v2.0</h1>
         <p>主应用 - 支持多个微前端子应用</p>
       </header>
 
