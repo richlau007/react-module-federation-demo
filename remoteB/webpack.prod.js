@@ -4,7 +4,7 @@ const deps = require('./package.json').dependencies;
 
 module.exports = {
   mode: 'production',
-  entry: './src/index.js',
+  entry: './src/bootstrap.js',
   output: {
     publicPath: '/react-module-federation-demo/remoteB/',
     path: require('path').resolve(__dirname, 'dist'),
