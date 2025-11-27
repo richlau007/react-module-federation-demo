@@ -32,10 +32,7 @@ module.exports = {
       exposes: {
         './App': './src/App',
       },
-      shared: {
-        react: { singleton: true, requiredVersion: deps.react, strictVersion: true },
-        'react-dom': { singleton: true, requiredVersion: deps['react-dom'], strictVersion: true },
-      },
+      shared: ['react', 'react-dom'],
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
