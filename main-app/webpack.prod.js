@@ -33,17 +33,14 @@ module.exports = {
         remoteB: 'remoteB@/react-module-federation-demo/remoteB/remoteEntry.js',
       },
       shared: {
+        ...deps,
         react: {
           singleton: true,
           requiredVersion: deps.react,
-          eager: true,
-          import: false
         },
         'react-dom': {
           singleton: true,
           requiredVersion: deps['react-dom'],
-          eager: true,
-          import: false
         }
       },
     }),

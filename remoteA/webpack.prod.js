@@ -33,17 +33,14 @@ module.exports = {
         './App': './src/App',
       },
       shared: {
+        ...deps,
         react: {
           singleton: true,
           requiredVersion: deps.react,
-          eager: true,
-          import: false
         },
         'react-dom': {
           singleton: true,
           requiredVersion: deps['react-dom'],
-          eager: true,
-          import: false
         }
       },
     }),
